@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
   Vcl.BaseImageCollection, Vcl.ImageCollection, Vcl.VirtualImage,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, System.Actions, Vcl.ActnList;
 
 type
   TForm5 = class(TForm)
@@ -19,11 +19,16 @@ type
     VirtualImage2: TVirtualImage;
     ComboBox2: TComboBox;
     ComboBox3: TComboBox;
+    actReset: TActionList;
+    Action1: TAction;
+    SpeedButton1: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
+    procedure Action1Execute(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
 
 
   private
@@ -42,6 +47,21 @@ implementation
 
 {$R *.dfm}
 
+procedure TForm5.Action1Execute(Sender: TObject);
+begin
+  // 2. 更新春季背景
+  ComboBox1Change(ComboBox1);
+  ComboBox1.ItemIndex := 0;
+
+  // 3. 更新春季饮料
+  ComboBox2Change(ComboBox2);
+  ComboBox2.ItemIndex := 0;
+
+  // 4. 最后更新春季女生
+  ComboBox3Change(ComboBox3);
+  ComboBox3.ItemIndex := 0;
+end;
+
 procedure TForm5.BitBtn2Click(Sender: TObject);
 begin
   close;
@@ -57,12 +77,6 @@ begin
    1:VirtualImageBG.Imageindex:=1;
    2:VirtualImageBG.Imageindex:=2;
    3:VirtualImageBG.Imageindex:=3;
- end;
- case Combobox1.itemindex of
-   0:virtualimage1.imageindex:=4;
-   1:virtualimage1.imageindex:=5;
-   2:virtualimage1.imageindex:=6;
-   3:virtualimage1.imageindex:=7;
  end;
 end;
 
@@ -96,4 +110,9 @@ VirtualImageBG.SendToBack;
 Virtualimage1.BringToFront;
 Virtualimage2.bringtofront;
 end;
- end.
+ procedure TForm5.SpeedButton1Click(Sender: TObject);
+begin
+ Showmessage('hello, my dress game!')
+end;
+
+end.
