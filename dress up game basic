@@ -1,118 +1,109 @@
-unit Unit5;
+unit Unit8;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.BaseImageCollection, Vcl.ImageCollection, Vcl.VirtualImage,
-  Vcl.Imaging.pngimage, System.Actions, Vcl.ActnList;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.BaseImageCollection,
+  Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions,
+  Vcl.ActnList, Vcl.Buttons;
 
 type
-  TForm5 = class(TForm)
-    BitBtn1: TBitBtn;
+  TForm8 = class(TForm)
     ComboBox1: TComboBox;
-    ImageCollection1: TImageCollection;
-    VirtualImageBG: TVirtualImage;
-    VirtualImage1: TVirtualImage;
-    BitBtn2: TBitBtn;
-    VirtualImage2: TVirtualImage;
+    Button1: TButton;
     ComboBox2: TComboBox;
     ComboBox3: TComboBox;
-    actReset: TActionList;
-    Action1: TAction;
+    VirtualImageBG: TVirtualImage;
+    VirtualImage2: TVirtualImage;
+    VirtualImage3: TVirtualImage;
+    VirtualImage4: TVirtualImage;
+    ImageCollection1: TImageCollection;
     SpeedButton1: TSpeedButton;
+    Button2: TButton;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
-    procedure BitBtn2Click(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
-    procedure Action1Execute(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
-
-
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
-   FIsDragging:boolean;
-   Foffset:Integer;
-   FoffsetY:Integer;
   public
     { Public declarations }
   end;
 
 var
-  Form5: TForm5;
+  Form8: TForm8;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm5.Action1Execute(Sender: TObject);
+
+
+procedure TForm8.Button1Click(Sender: TObject);
 begin
-  // 2. 更新春季背景
-  ComboBox1Change(ComboBox1);
-  ComboBox1.ItemIndex := 0;
-
-  // 3. 更新春季饮料
-  ComboBox2Change(ComboBox2);
-  ComboBox2.ItemIndex := 0;
-
-  // 4. 最后更新春季女生
-  ComboBox3Change(ComboBox3);
-  ComboBox3.ItemIndex := 0;
+ close;
 end;
 
-procedure TForm5.BitBtn2Click(Sender: TObject);
+procedure TForm8.Button2Click(Sender: TObject);
 begin
-  close;
+//back to spring haha
+ combobox1.itemindex:=0;
+ combobox1change(combobox1);
+ combobox2.itemindex:=0;
+ combobox2change(combobox2);
+ combobox3.itemindex:=0;
+ combobox3change(combobox3);
 end;
 
-procedure TForm5.ComboBox1Change(Sender: TObject);
-var
- base:string;
+procedure TForm8.ComboBox1Change(Sender: TObject);
+
 begin
- base:=ExtractFilePath(Application.ExeName)+'images/';
- case Combobox1.itemindex of
-   0:VirtualImageBG.Imageindex:=0;
-   1:VirtualImageBG.Imageindex:=1;
-   2:VirtualImageBG.Imageindex:=2;
-   3:VirtualImageBG.Imageindex:=3;
+ case combobox1.itemindex of
+   0:virtualimageBG.imageindex:=0;
+   1:virtualimageBG.imageindex:=1;
+   2:virtualimageBG.imageindex:=2;
+   3:virtualimageBG.imageindex:=3;
  end;
 end;
 
-procedure TForm5.ComboBox2Change(Sender: TObject);
+procedure TForm8.ComboBox2Change(Sender: TObject);
 begin
- case Combobox2.itemindex of
-   0:virtualimage2.imageindex:=8;
-   1:virtualimage2.imageindex:=9;
-   2:virtualimage2.imageindex:=10;
-   3:virtualimage2.imageindex:=11;
+ case combobox2.itemindex of
+  0:virtualimage3.imageindex:=4;
+  1:virtualimage3.imageindex:=5;
+  2:virtualimage3.imageindex:=6;
+  3:virtualimage3.imageindex:=7;
  end;
 end;
 
-procedure TForm5.ComboBox3Change(Sender: TObject);
+procedure TForm8.ComboBox3Change(Sender: TObject);
 begin
- case Combobox3.itemindex of
-   0:virtualimage1.imageindex:=12;
-   1:virtualimage1.imageindex:=4;
-   2:virtualimage1.imageindex:=13;
-   3:virtualimage1.imageindex:=5;
-   4:virtualimage1.imageindex:=14;
-   5:virtualimage1.imageindex:=6;
-   6:virtualimage1.imageindex:=15;
-   7:virtualimage1.imageindex:=7;
+ case combobox3.itemindex of
+  0:virtualimage2.imageindex:=8;
+  1:virtualimage2.imageindex:=9;
+  2:virtualimage2.imageindex:=10;
+  3:virtualimage2.imageindex:=11;
+  4:virtualimage2.imageindex:=12;
+  5:virtualimage2.imageindex:=13;
+  6:virtualimage2.imageindex:=14;
+  7:virtualimage2.imageindex:=15;
  end;
 end;
 
-procedure TForm5.FormCreate(Sender: TObject);
+procedure TForm8.FormCreate(Sender: TObject);
 begin
-VirtualImageBG.SendToBack;
-Virtualimage1.BringToFront;
-Virtualimage2.bringtofront;
+ virtualimageBG.SendToback;
+ virtualimage2.bringtofront;
+ virtualimage3.bringtofront;
 end;
- procedure TForm5.SpeedButton1Click(Sender: TObject);
+
+procedure TForm8.SpeedButton1Click(Sender: TObject);
 begin
- Showmessage('hello, my dress game!')
+ showmessage('hello, my dress up game')
 end;
 
 end.
