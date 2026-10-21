@@ -5,8 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.BaseImageCollection,
-  Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions,
-  Vcl.ActnList, Vcl.Buttons;
+  Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions, winapi.shellAPI,
+  Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls;
 
 type
   TForm8 = class(TForm)
@@ -21,6 +21,8 @@ type
     ImageCollection1: TImageCollection;
     SpeedButton1: TSpeedButton;
     Button2: TButton;
+    Bevel1: TBevel;
+    LinkLabel1: TLinkLabel;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
@@ -28,6 +30,8 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure LinkLabel1LinkClick(Sender: TObject; const Link: string;
+      LinkType: TSysLinkType);
   private
     { Private declarations }
   public
@@ -99,6 +103,14 @@ begin
  virtualimageBG.SendToback;
  virtualimage2.bringtofront;
  virtualimage3.bringtofront;
+end;
+
+
+
+procedure TForm8.LinkLabel1LinkClick(Sender: TObject; const Link: string;
+  LinkType: TSysLinkType);
+begin
+   ShellExecute(0, PChar('open'), PChar('https://chat.deepseek.com'), nil, nil, SW_SHOWNORMAL);
 end;
 
 procedure TForm8.SpeedButton1Click(Sender: TObject);
