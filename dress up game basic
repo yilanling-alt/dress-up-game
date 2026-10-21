@@ -17,11 +17,9 @@ type
     VirtualImageBG: TVirtualImage;
     VirtualImage2: TVirtualImage;
     VirtualImage3: TVirtualImage;
-    VirtualImage4: TVirtualImage;
     ImageCollection1: TImageCollection;
     SpeedButton1: TSpeedButton;
     Button2: TButton;
-    Bevel1: TBevel;
     LinkLabel1: TLinkLabel;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
@@ -71,30 +69,33 @@ begin
    1:virtualimageBG.imageindex:=1;
    2:virtualimageBG.imageindex:=2;
    3:virtualimageBG.imageindex:=3;
+   4:virtualimageBG.imageindex:=4;
  end;
 end;
 
 procedure TForm8.ComboBox2Change(Sender: TObject);
 begin
  case combobox2.itemindex of
-  0:virtualimage3.imageindex:=4;
-  1:virtualimage3.imageindex:=5;
-  2:virtualimage3.imageindex:=6;
-  3:virtualimage3.imageindex:=7;
+  0:virtualimage3.imageindex:=5;
+  1:virtualimage3.imageindex:=6;
+  2:virtualimage3.imageindex:=7;
+  3:virtualimage3.imageindex:=8;
  end;
 end;
 
 procedure TForm8.ComboBox3Change(Sender: TObject);
 begin
  case combobox3.itemindex of
-  0:virtualimage2.imageindex:=8;
-  1:virtualimage2.imageindex:=9;
-  2:virtualimage2.imageindex:=10;
-  3:virtualimage2.imageindex:=11;
-  4:virtualimage2.imageindex:=12;
-  5:virtualimage2.imageindex:=13;
-  6:virtualimage2.imageindex:=14;
-  7:virtualimage2.imageindex:=15;
+  0:virtualimage2.imageindex:=9;
+  1:virtualimage2.imageindex:=10;
+  2:virtualimage2.imageindex:=11;
+  3:virtualimage2.imageindex:=12;
+  4:virtualimage2.imageindex:=13;
+  5:virtualimage2.imageindex:=14;
+  6:virtualimage2.imageindex:=15;
+  7:virtualimage2.imageindex:=16;
+  8:virtualimage2.imageindex:=17;
+  9:virtualimage2.imageindex:=18;
  end;
 end;
 
