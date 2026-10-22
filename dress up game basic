@@ -25,6 +25,12 @@ type
     Shape1: TShape;
     Shape2: TShape;
     VirtualImage4: TVirtualImage;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Shape7: TShape;
+    Shape8: TShape;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
@@ -33,6 +39,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure LinkLabel1LinkClick(Sender: TObject; const Link: string;
       LinkType: TSysLinkType);
+
   private
     { Private declarations }
   public
@@ -69,7 +76,13 @@ begin
   Shape2.Visible := False;
   VirtualImage1.Visible := False;
   VirtualImage3.Visible := False;
-  virtualimage4.visible:=false;
+  virtualimage4.visible:=false; //wooden deck
+  shape3.visible:=false;//windows
+  shape4.visible:=false;
+  shape5.visible:=false;
+  shape6.visible:=false;
+  shape7.visible:=false;
+  shape8.visible:=false;
  case combobox1.itemindex of
    0:virtualimageBG.imageindex:=0;
    1:virtualimageBG.imageindex:=1;
@@ -84,8 +97,17 @@ begin
          Virtualimage3.visible:=true;
    end;
    6:begin
-        virtualImageBG.imageindex:=25;
+        virtualImageBG.imageindex:=28;
         virtualimage4.visible:=true;
+   end;
+   7:begin
+        virtualimageBG.Imageindex:=6;
+        shape3.visible:=true;//windows
+        shape4.visible:=true;
+        shape5.visible:=true;
+        shape6.visible:=true;
+        shape7.visible:=true;
+        shape8.visible:=true;
    end;
 end;
 end;
@@ -95,25 +117,28 @@ end;
 procedure TForm8.ComboBox3Change(Sender: TObject);
 begin
  case combobox3.itemindex of
-  0:virtualimage2.imageindex:=10;
-  1:virtualimage2.imageindex:=11;
-  2:virtualimage2.imageindex:=12;
-  3:virtualimage2.imageindex:=13;
-  4:virtualimage2.imageindex:=14;
-  5:virtualimage2.imageindex:=15;
-  6:virtualimage2.imageindex:=16;
-  7:virtualimage2.imageindex:=17;
-  8:virtualimage2.imageindex:=18;
-  9:virtualimage2.imageindex:=19;
-  10:virtualimage2.imageindex:=20;
-  11:virtualimage2.imageindex:=21;
-  12:virtualimage2.imageindex:=22;
-  13:virtualimage2.imageindex:=23;
+  0:virtualimage2.imageindex:=11;
+  1:virtualimage2.imageindex:=12;
+  2:virtualimage2.imageindex:=13;
+  3:virtualimage2.imageindex:=14;
+  4:virtualimage2.imageindex:=15;
+  5:virtualimage2.imageindex:=16;
+  6:virtualimage2.imageindex:=17;
+  7:virtualimage2.imageindex:=18;
+  8:virtualimage2.imageindex:=19;
+  9:virtualimage2.imageindex:=20;
+  10:virtualimage2.imageindex:=21;
+  11:virtualimage2.imageindex:=22;
+  12:virtualimage2.imageindex:=23;
+  13:virtualimage2.imageindex:=24;
+  14:virtualimage2.imageindex:=25;
+  15:virtualimage2.imageindex:=26;
  end;
 end;
 
 procedure TForm8.FormCreate(Sender: TObject);
 begin
+
  virtualimageBG.SendToback;
  virtualimage2.bringtofront;
  virtualimage3.bringtofront;
