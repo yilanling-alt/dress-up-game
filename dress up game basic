@@ -21,9 +21,12 @@ type
     SpeedButton1: TSpeedButton;
     Button2: TButton;
     LinkLabel1: TLinkLabel;
+    VirtualImage1: TVirtualImage;
+    Shape1: TShape;
+    Shape2: TShape;
+    VirtualImage4: TVirtualImage;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
-    procedure ComboBox2Change(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -55,8 +58,6 @@ begin
 //back to spring haha
  combobox1.itemindex:=0;
  combobox1change(combobox1);
- combobox2.itemindex:=0;
- combobox2change(combobox2);
  combobox3.itemindex:=0;
  combobox3change(combobox3);
 end;
@@ -64,38 +65,50 @@ end;
 procedure TForm8.ComboBox1Change(Sender: TObject);
 
 begin
+  Shape1.Visible := False;
+  Shape2.Visible := False;
+  VirtualImage1.Visible := False;
+  VirtualImage3.Visible := False;
+  virtualimage4.visible:=false;
  case combobox1.itemindex of
    0:virtualimageBG.imageindex:=0;
    1:virtualimageBG.imageindex:=1;
    2:virtualimageBG.imageindex:=2;
    3:virtualimageBG.imageindex:=3;
    4:virtualimageBG.imageindex:=4;
- end;
+   5: begin
+         VirtualImageBG.ImageIndex := 5; // 假设 5 是室内背景
+         shape1.Visible := True;
+         shape2.Visible := True;
+         VirtualImage1.Visible := True;
+         Virtualimage3.visible:=true;
+   end;
+   6:begin
+        virtualImageBG.imageindex:=25;
+        virtualimage4.visible:=true;
+   end;
+end;
 end;
 
-procedure TForm8.ComboBox2Change(Sender: TObject);
-begin
- case combobox2.itemindex of
-  0:virtualimage3.imageindex:=5;
-  1:virtualimage3.imageindex:=6;
-  2:virtualimage3.imageindex:=7;
-  3:virtualimage3.imageindex:=8;
- end;
-end;
+
 
 procedure TForm8.ComboBox3Change(Sender: TObject);
 begin
  case combobox3.itemindex of
-  0:virtualimage2.imageindex:=9;
-  1:virtualimage2.imageindex:=10;
-  2:virtualimage2.imageindex:=11;
-  3:virtualimage2.imageindex:=12;
-  4:virtualimage2.imageindex:=13;
-  5:virtualimage2.imageindex:=14;
-  6:virtualimage2.imageindex:=15;
-  7:virtualimage2.imageindex:=16;
-  8:virtualimage2.imageindex:=17;
-  9:virtualimage2.imageindex:=18;
+  0:virtualimage2.imageindex:=10;
+  1:virtualimage2.imageindex:=11;
+  2:virtualimage2.imageindex:=12;
+  3:virtualimage2.imageindex:=13;
+  4:virtualimage2.imageindex:=14;
+  5:virtualimage2.imageindex:=15;
+  6:virtualimage2.imageindex:=16;
+  7:virtualimage2.imageindex:=17;
+  8:virtualimage2.imageindex:=18;
+  9:virtualimage2.imageindex:=19;
+  10:virtualimage2.imageindex:=20;
+  11:virtualimage2.imageindex:=21;
+  12:virtualimage2.imageindex:=22;
+  13:virtualimage2.imageindex:=23;
  end;
 end;
 
