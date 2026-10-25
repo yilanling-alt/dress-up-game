@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.BaseImageCollection,
   Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions, winapi.shellAPI,
-  Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls;
+  Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls, Vcl.AppEvnts;
 
 type
   TForm8 = class(TForm)
@@ -31,6 +31,9 @@ type
     Shape6: TShape;
     Shape7: TShape;
     Shape8: TShape;
+    ApplicationEvents1: TApplicationEvents;
+    TrayIcon1: TTrayIcon;
+    ColorBox1: TColorBox;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
@@ -39,6 +42,10 @@ type
     procedure Button2Click(Sender: TObject);
     procedure LinkLabel1LinkClick(Sender: TObject; const Link: string;
       LinkType: TSysLinkType);
+    procedure ApplicationEvents1Message(var Msg: TMsg; var Handled: Boolean);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure TrayIcon1Click(Sender: TObject);
+    procedure ColorBox1Change(Sender: TObject);
 
   private
     { Private declarations }
@@ -55,9 +62,47 @@ implementation
 
 
 
+procedure TForm8.ApplicationEvents1Message(var Msg: TMsg; var Handled: Boolean);
+begin
+var
+  WheelDelta: SmallInt;
+begin
+  // 1. 拦截鼠标滚轮消息
+  if Msg.message = WM_MOUSEWHEEL then
+  begin
+    // 2. 获取滚轮方向
+    WheelDelta := SmallInt(HiWord(Msg.wParam));
+
+    // 3. 判断鼠标是否在图片区域内（如果你用的控件是 VirtualImage1）
+    if PtInRect(VirtualImage1.ClientRect, VirtualImage1.ScreenToClient(Msg.pt)) then
+    begin
+      if WheelDelta > 0 then
+      begin
+        // 向上滚：上一套
+        if ComboBox1.ItemIndex > 0 then
+          ComboBox1.ItemIndex := ComboBox1.ItemIndex - 1;
+      end
+      else
+      begin
+        // 向下滚：下一套
+        if ComboBox1.ItemIndex < ComboBox1.Items.Count - 1 then
+          ComboBox1.ItemIndex := ComboBox1.ItemIndex + 1;
+      end;
+
+      // 4. 手动触发你 ComboBox 的 Change 事件（注意看你 Form1 上的实际名字，通常是 ComboBox1Change）
+      if Assigned(ComboBox1.OnChange) then
+        ComboBox1.OnChange(ComboBox1);
+
+      Handled := True; // 拦截消息，防止页面乱滚
+      end;
+    end;
+  end;
+end;
+
 procedure TForm8.Button1Click(Sender: TObject);
 begin
- close;
+ TrayIcon1.Visible := False;
+ Application.Terminate;
 end;
 
 procedure TForm8.Button2Click(Sender: TObject);
@@ -67,6 +112,11 @@ begin
  combobox1change(combobox1);
  combobox3.itemindex:=0;
  combobox3change(combobox3);
+end;
+
+procedure TForm8.ColorBox1Change(Sender: TObject);
+begin
+ self.color:=colorbox1.selected;
 end;
 
 procedure TForm8.ComboBox1Change(Sender: TObject);
@@ -136,6 +186,23 @@ begin
  end;
 end;
 
+procedure TForm8.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ Action := caNone;  // 核心：拦截关闭，告诉系统“别杀我”
+  Hide;              // 核心：把界面藏起来
+
+  // 触发一个气泡提示（这就叫入门级的仪式感！）
+  TrayIcon1.BalloonTitle := 'dress up game';
+  TrayIcon1.BalloonHint := 'I am back to right buttom,click for me';
+  TrayIcon1.ShowBalloonHint;
+end;
+
+procedure TForm8.TrayIcon1Click(Sender: TObject);
+begin
+  Show;              // 重新显示界面
+  WindowState := wsNormal; // 确保它恢复成正常窗口
+  Application.BringToFront; // 让它跑到所有窗口最前面
+end;
 procedure TForm8.FormCreate(Sender: TObject);
 begin
 
@@ -156,5 +223,6 @@ procedure TForm8.SpeedButton1Click(Sender: TObject);
 begin
  showmessage('hello, my dress up game')
 end;
+
 
 end.
