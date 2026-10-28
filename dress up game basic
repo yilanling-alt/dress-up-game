@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.BaseImageCollection,
-  Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions, winapi.shellAPI,
+  Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions, winapi.shellAPI, system.dateutils,
   Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls, Vcl.AppEvnts;
 
 type
@@ -46,9 +46,12 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure TrayIcon1Click(Sender: TObject);
     procedure ColorBox1Change(Sender: TObject);
+    procedure ComboBox2Change(Sender: TObject);
+
 
   private
     { Private declarations }
+     procedure ApplySeasonalcolor;
   public
     { Public declarations }
   end;
@@ -115,21 +118,37 @@ begin
 end;
 
 procedure TForm8.ColorBox1Change(Sender: TObject);
+
 begin
  self.color:=colorbox1.selected;
+
 end;
 
+procedure TForm8.applyseasonalcolor;
+ var
+  CurrentMonth:Integer;
+  begin
+  CurrentMonth:=Monthof(now);
+ case CurrentMonth of
+    3..5: colorbox1.selected:=clOlive;
+    6..8: colorbox1.selected:=clSkyBlue;
+    9..11:Colorbox1.selected:=clwebcoral;
+    1,2,12:colorbox1.selected:=clWhite;
+ end;
+ self.color:=colorbox1.selected;
+ colorbox1change(colorbox1);
+ end;
 procedure TForm8.ComboBox1Change(Sender: TObject);
 
 begin
   Shape1.Visible := False;
   Shape2.Visible := False;
   VirtualImage1.Visible := False;
-  VirtualImage3.Visible := False;
+  Virtualimage3.visible:=false;
+  shape5.Visible := False;
   virtualimage4.visible:=false; //wooden deck
   shape3.visible:=false;//windows
   shape4.visible:=false;
-  shape5.visible:=false;
   shape6.visible:=false;
   shape7.visible:=false;
   shape8.visible:=false;
@@ -139,6 +158,8 @@ begin
    2:virtualimageBG.imageindex:=2;
    3:virtualimageBG.imageindex:=3;
    4:virtualimageBG.imageindex:=4;
+   8:virtualimageBG.imageindex:=7;
+   9:virtualimageBG.imageindex:=34;
    5: begin
          VirtualImageBG.ImageIndex := 5; // 假设 5 是室内背景
          shape1.Visible := True;
@@ -147,7 +168,7 @@ begin
          Virtualimage3.visible:=true;
    end;
    6:begin
-        virtualImageBG.imageindex:=28;
+        virtualImageBG.imageindex:=31;
         virtualimage4.visible:=true;
    end;
    7:begin
@@ -164,25 +185,50 @@ end;
 
 
 
+procedure TForm8.ComboBox2Change(Sender: TObject);
+begin
+  Shape1.Visible := False;
+  Shape2.Visible := False;
+  VirtualImage1.Visible := False;
+  Virtualimage3.visible:=false;
+  shape5.Visible := False;
+  virtualimage4.visible:=false; //wooden deck
+  shape3.visible:=false;//windows
+  shape4.visible:=false;
+  shape6.visible:=false;
+  shape7.visible:=false;
+  shape8.visible:=false;
+ case combobox2.itemindex of
+
+  3:begin
+     virtualImageBG.ImageIndex := 38;
+      ShowMessage('Welcome to the water park!');
+ end;
+ end;
+ end;
 procedure TForm8.ComboBox3Change(Sender: TObject);
 begin
  case combobox3.itemindex of
-  0:virtualimage2.imageindex:=11;
-  1:virtualimage2.imageindex:=12;
-  2:virtualimage2.imageindex:=13;
-  3:virtualimage2.imageindex:=14;
-  4:virtualimage2.imageindex:=15;
-  5:virtualimage2.imageindex:=16;
-  6:virtualimage2.imageindex:=17;
-  7:virtualimage2.imageindex:=18;
-  8:virtualimage2.imageindex:=19;
-  9:virtualimage2.imageindex:=20;
-  10:virtualimage2.imageindex:=21;
-  11:virtualimage2.imageindex:=22;
-  12:virtualimage2.imageindex:=23;
-  13:virtualimage2.imageindex:=24;
-  14:virtualimage2.imageindex:=25;
-  15:virtualimage2.imageindex:=26;
+  0:virtualimage2.imageindex:=12;
+  1:virtualimage2.imageindex:=13;
+  2:virtualimage2.imageindex:=14;
+  3:virtualimage2.imageindex:=15;
+  4:virtualimage2.imageindex:=16;
+  5:virtualimage2.imageindex:=17;
+  6:virtualimage2.imageindex:=18;
+  7:virtualimage2.imageindex:=19;
+  8:virtualimage2.imageindex:=20;
+  9:virtualimage2.imageindex:=21;
+  10:virtualimage2.imageindex:=22;
+  11:virtualimage2.imageindex:=23;
+  12:virtualimage2.imageindex:=24;
+  13:virtualimage2.imageindex:=25;
+  14:virtualimage2.imageindex:=26;
+  15:virtualimage2.imageindex:=27;
+  16:virtualimage2.imageindex:=28;
+  17:virtualimage2.imageindex:=29;
+  18:virtualimage2.imageindex:=36;
+  19:virtualimage2.imageindex:=37;
  end;
 end;
 
@@ -205,7 +251,7 @@ begin
 end;
 procedure TForm8.FormCreate(Sender: TObject);
 begin
-
+ ApplySeasonalcolor;
  virtualimageBG.SendToback;
  virtualimage2.bringtofront;
  virtualimage3.bringtofront;
@@ -221,7 +267,7 @@ end;
 
 procedure TForm8.SpeedButton1Click(Sender: TObject);
 begin
- showmessage('hello, my dress up game')
+ showmessage('hello, my dress up game');
 end;
 
 
