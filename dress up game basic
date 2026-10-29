@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.BaseImageCollection,
   Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions, winapi.shellAPI, system.dateutils,
-  Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls, Vcl.AppEvnts;
+  Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls, Vcl.AppEvnts, Vcl.WinXPanels,
+  Vcl.Tabs;
 
 type
   TForm8 = class(TForm)
@@ -34,6 +35,15 @@ type
     ApplicationEvents1: TApplicationEvents;
     TrayIcon1: TTrayIcon;
     ColorBox1: TColorBox;
+    VirtualImage5: TVirtualImage;
+    TabSet1: TTabSet;
+    CardPanel1: TCardPanel;
+    VirtualImage6: TVirtualImage;
+    Card1: TCard;
+    VirtualImage8: TVirtualImage;
+    Card2: TCard;
+    VirtualImage7: TVirtualImage;
+    VirtualImage9: TVirtualImage;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
@@ -47,6 +57,9 @@ type
     procedure TrayIcon1Click(Sender: TObject);
     procedure ColorBox1Change(Sender: TObject);
     procedure ComboBox2Change(Sender: TObject);
+    procedure TabSet1Change(Sender: TObject; NewTab: Integer;
+      var AllowChange: Boolean);
+
 
 
   private
@@ -152,12 +165,13 @@ begin
   shape6.visible:=false;
   shape7.visible:=false;
   shape8.visible:=false;
+  virtualimage5.visible:=false;
  case combobox1.itemindex of
    0:virtualimageBG.imageindex:=0;
    1:virtualimageBG.imageindex:=1;
    2:virtualimageBG.imageindex:=2;
    3:virtualimageBG.imageindex:=3;
-   4:virtualimageBG.imageindex:=4;
+   4:virtualimage7.imageindex:=4;
    8:virtualimageBG.imageindex:=7;
    9:virtualimageBG.imageindex:=34;
    5: begin
@@ -180,6 +194,15 @@ begin
         shape7.visible:=true;
         shape8.visible:=true;
    end;
+   10:begin
+      virtualimageBG.imageindex:=39;
+      virtualimage5.visible:=true;
+      self.color:=clwhite;
+   end;
+   11:begin
+      virtualimage6.imageindex:=41;
+
+   end;
 end;
 end;
 
@@ -198,6 +221,7 @@ begin
   shape6.visible:=false;
   shape7.visible:=false;
   shape8.visible:=false;
+  virtualimage5.visible:=false;
  case combobox2.itemindex of
 
   3:begin
@@ -217,8 +241,8 @@ begin
   5:virtualimage2.imageindex:=17;
   6:virtualimage2.imageindex:=18;
   7:virtualimage2.imageindex:=19;
-  8:virtualimage2.imageindex:=20;
-  9:virtualimage2.imageindex:=21;
+  8:virtualimage9.imageindex:=20;
+  9:virtualimage9.imageindex:=21;
   10:virtualimage2.imageindex:=22;
   11:virtualimage2.imageindex:=23;
   12:virtualimage2.imageindex:=24;
@@ -229,6 +253,9 @@ begin
   17:virtualimage2.imageindex:=29;
   18:virtualimage2.imageindex:=36;
   19:virtualimage2.imageindex:=37;
+  20:virtualimage2.imageindex:=40;
+  21:virtualimage8.imageindex:=42;
+  22:virtualimage8.imageindex:=43;
  end;
 end;
 
@@ -243,18 +270,37 @@ begin
   TrayIcon1.ShowBalloonHint;
 end;
 
+procedure TForm8.TabSet1Change(Sender: TObject; NewTab: Integer;
+  var AllowChange: Boolean);
+begin
+  VirtualImageBG.Visible := False;
+  CardPanel1.ActiveCardIndex:=0;
+
+  if (NewTab >= 0) and (NewTab < CardPanel1.CardCount) then
+  begin
+    CardPanel1.ActiveCardIndex := NewTab;
+  end
+  else
+  begin
+    AllowChange := False;
+  end;
+end;
+
 procedure TForm8.TrayIcon1Click(Sender: TObject);
 begin
   Show;              // 重新显示界面
   WindowState := wsNormal; // 确保它恢复成正常窗口
   Application.BringToFront; // 让它跑到所有窗口最前面
 end;
+
+
 procedure TForm8.FormCreate(Sender: TObject);
 begin
  ApplySeasonalcolor;
  virtualimageBG.SendToback;
  virtualimage2.bringtofront;
  virtualimage3.bringtofront;
+ virtualimage5.sendtoback;
 end;
 
 
