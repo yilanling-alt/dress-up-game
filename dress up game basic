@@ -44,6 +44,18 @@ type
     Card2: TCard;
     VirtualImage7: TVirtualImage;
     VirtualImage9: TVirtualImage;
+    Card3: TCard;
+    Label1: TLabel;
+    VirtualImage10: TVirtualImage;
+    VirtualImage11: TVirtualImage;
+    VirtualImage12: TVirtualImage;
+    SpeedButton2: TSpeedButton;
+    Card4: TCard;
+    VirtualImage13: TVirtualImage;
+    VirtualImage14: TVirtualImage;
+    Card5: TCard;
+    VirtualImage15: TVirtualImage;
+    VirtualImage16: TVirtualImage;
     procedure FormCreate(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure ComboBox3Change(Sender: TObject);
@@ -59,6 +71,8 @@ type
     procedure ComboBox2Change(Sender: TObject);
     procedure TabSet1Change(Sender: TObject; NewTab: Integer;
       var AllowChange: Boolean);
+    procedure SpeedButton2Click(Sender: TObject);
+
 
 
 
@@ -128,7 +142,9 @@ begin
  combobox1change(combobox1);
  combobox3.itemindex:=0;
  combobox3change(combobox3);
+ TabSet1.TabIndex := 4;
 end;
+
 
 procedure TForm8.ColorBox1Change(Sender: TObject);
 
@@ -167,7 +183,7 @@ begin
   shape8.visible:=false;
   virtualimage5.visible:=false;
  case combobox1.itemindex of
-   0:virtualimageBG.imageindex:=0;
+   0:virtualimage15.imageindex:=0;
    1:virtualimageBG.imageindex:=1;
    2:virtualimageBG.imageindex:=2;
    3:virtualimageBG.imageindex:=3;
@@ -225,16 +241,18 @@ begin
  case combobox2.itemindex of
 
   3:begin
-     virtualImageBG.ImageIndex := 38;
-      ShowMessage('Welcome to the water park!');
+     virtualImage6.ImageIndex := 38;
+     virtualimage8.visible:=false;
+
+      ShowMessage('Welcome to the water park! please do not sit on floating radiator');
  end;
  end;
  end;
 procedure TForm8.ComboBox3Change(Sender: TObject);
 begin
  case combobox3.itemindex of
-  0:virtualimage2.imageindex:=12;
-  1:virtualimage2.imageindex:=13;
+  0:virtualimage16.imageindex:=12;
+  1:virtualimage16.imageindex:=13;
   2:virtualimage2.imageindex:=14;
   3:virtualimage2.imageindex:=15;
   4:virtualimage2.imageindex:=16;
@@ -251,8 +269,8 @@ begin
   15:virtualimage2.imageindex:=27;
   16:virtualimage2.imageindex:=28;
   17:virtualimage2.imageindex:=29;
-  18:virtualimage2.imageindex:=36;
-  19:virtualimage2.imageindex:=37;
+  18:virtualimage14.imageindex:=36;
+  19:virtualimage14.imageindex:=37;
   20:virtualimage2.imageindex:=40;
   21:virtualimage8.imageindex:=42;
   22:virtualimage8.imageindex:=43;
@@ -316,5 +334,10 @@ begin
  showmessage('hello, my dress up game');
 end;
 
+
+procedure TForm8.SpeedButton2Click(Sender: TObject);
+begin
+ showmessage('trick or treat');
+end;
 
 end.
