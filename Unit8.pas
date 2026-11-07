@@ -1,0 +1,352 @@
+unit Unit8;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.BaseImageCollection,
+  Vcl.ImageCollection, Vcl.VirtualImage, Vcl.StdCtrls, System.Actions, winapi.shellAPI, system.dateutils,
+  Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls, Vcl.AppEvnts, Vcl.WinXPanels,
+  Vcl.Tabs;
+
+type
+  TForm8 = class(TForm)
+    ComboBox1: TComboBox;
+    Button1: TButton;
+    ComboBox2: TComboBox;
+    ComboBox3: TComboBox;
+    VirtualImageBG: TVirtualImage;
+    VirtualImage2: TVirtualImage;
+    VirtualImage3: TVirtualImage;
+    ImageCollection1: TImageCollection;
+    SpeedButton1: TSpeedButton;
+    Button2: TButton;
+    LinkLabel1: TLinkLabel;
+    VirtualImage1: TVirtualImage;
+    Shape1: TShape;
+    Shape2: TShape;
+    VirtualImage4: TVirtualImage;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Shape7: TShape;
+    Shape8: TShape;
+    ApplicationEvents1: TApplicationEvents;
+    TrayIcon1: TTrayIcon;
+    ColorBox1: TColorBox;
+    VirtualImage5: TVirtualImage;
+    TabSet1: TTabSet;
+    CardPanel1: TCardPanel;
+    VirtualImage6: TVirtualImage;
+    Card1: TCard;
+    VirtualImage8: TVirtualImage;
+    Card2: TCard;
+    VirtualImage7: TVirtualImage;
+    VirtualImage9: TVirtualImage;
+    Card3: TCard;
+    Label1: TLabel;
+    VirtualImage10: TVirtualImage;
+    VirtualImage11: TVirtualImage;
+    VirtualImage12: TVirtualImage;
+    SpeedButton2: TSpeedButton;
+    Card4: TCard;
+    VirtualImage13: TVirtualImage;
+    VirtualImage14: TVirtualImage;
+    Card5: TCard;
+    VirtualImage15: TVirtualImage;
+    VirtualImage16: TVirtualImage;
+    Card6: TCard;
+    VirtualImage17: TVirtualImage;
+    VirtualImage18: TVirtualImage;
+    Card7: TCard;
+    VirtualImage19: TVirtualImage;
+    VirtualImage20: TVirtualImage;
+    Card8: TCard;
+    VirtualImage21: TVirtualImage;
+    VirtualImage22: TVirtualImage;
+    procedure FormCreate(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
+    procedure ComboBox3Change(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure LinkLabel1LinkClick(Sender: TObject; const Link: string;
+      LinkType: TSysLinkType);
+    procedure ApplicationEvents1Message(var Msg: TMsg; var Handled: Boolean);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure TrayIcon1Click(Sender: TObject);
+    procedure ColorBox1Change(Sender: TObject);
+    procedure ComboBox2Change(Sender: TObject);
+    procedure TabSet1Change(Sender: TObject; NewTab: Integer;
+      var AllowChange: Boolean);
+    procedure SpeedButton2Click(Sender: TObject);
+
+
+
+
+  private
+    { Private declarations }
+     procedure ApplySeasonalcolor;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form8: TForm8;
+
+implementation
+
+{$R *.dfm}
+
+
+
+procedure TForm8.ApplicationEvents1Message(var Msg: TMsg; var Handled: Boolean);
+begin
+var
+  WheelDelta: SmallInt;
+begin
+  // 1. 拦截鼠标滚轮消息
+  if Msg.message = WM_MOUSEWHEEL then
+  begin
+    // 2. 获取滚轮方向
+    WheelDelta := SmallInt(HiWord(Msg.wParam));
+
+    // 3. 判断鼠标是否在图片区域内（如果你用的控件是 VirtualImage1）
+    if PtInRect(VirtualImage1.ClientRect, VirtualImage1.ScreenToClient(Msg.pt)) then
+    begin
+      if WheelDelta > 0 then
+      begin
+        // 向上滚：上一套
+        if ComboBox1.ItemIndex > 0 then
+          ComboBox1.ItemIndex := ComboBox1.ItemIndex - 1;
+      end
+      else
+      begin
+        // 向下滚：下一套
+        if ComboBox1.ItemIndex < ComboBox1.Items.Count - 1 then
+          ComboBox1.ItemIndex := ComboBox1.ItemIndex + 1;
+      end;
+
+      // 4. 手动触发你 ComboBox 的 Change 事件（注意看你 Form1 上的实际名字，通常是 ComboBox1Change）
+      if Assigned(ComboBox1.OnChange) then
+        ComboBox1.OnChange(ComboBox1);
+
+      Handled := True; // 拦截消息，防止页面乱滚
+      end;
+    end;
+  end;
+end;
+
+procedure TForm8.Button1Click(Sender: TObject);
+begin
+ TrayIcon1.Visible := False;
+ Application.Terminate;
+end;
+
+procedure TForm8.Button2Click(Sender: TObject);
+begin
+//back to spring haha
+ combobox1.itemindex:=0;
+ combobox1change(combobox1);
+ combobox3.itemindex:=0;
+ combobox3change(combobox3);
+ TabSet1.TabIndex := 4;
+end;
+
+
+procedure TForm8.ColorBox1Change(Sender: TObject);
+
+begin
+ self.color:=colorbox1.selected;
+
+end;
+
+procedure TForm8.applyseasonalcolor;
+ var
+  CurrentMonth:Integer;
+  begin
+  CurrentMonth:=Monthof(now);
+ case CurrentMonth of
+    3..5: colorbox1.selected:=clOlive;
+    6..8: colorbox1.selected:=clSkyBlue;
+    9..11:Colorbox1.selected:=clwebcoral;
+    1,2,12:colorbox1.selected:=clWhite;
+ end;
+ self.color:=colorbox1.selected;
+ colorbox1change(colorbox1);
+ end;
+procedure TForm8.ComboBox1Change(Sender: TObject);
+
+begin
+  Shape1.Visible := False;
+  Shape2.Visible := False;
+  VirtualImage1.Visible := False;
+  Virtualimage3.visible:=false;
+  shape5.Visible := False;
+  virtualimage4.visible:=false; //wooden deck
+  shape3.visible:=false;//windows
+  shape4.visible:=false;
+  shape6.visible:=false;
+  shape7.visible:=false;
+  shape8.visible:=false;
+  virtualimage5.visible:=false;
+ case combobox1.itemindex of
+   0:virtualimage15.imageindex:=0;
+   1:virtualimage17.imageindex:=1;
+   2:virtualimage19.imageindex:=2;
+   3:virtualimage21.imageindex:=3;
+   4:virtualimage7.imageindex:=4;
+   8:virtualimageBG.imageindex:=7;
+   9:virtualimageBG.imageindex:=34;
+   5: begin
+         VirtualImageBG.ImageIndex := 5; // 假设 5 是室内背景
+         shape1.Visible := True;
+         shape2.Visible := True;
+         VirtualImage1.Visible := True;
+         Virtualimage3.visible:=true;
+   end;
+   6:begin
+        virtualImageBG.imageindex:=31;
+        virtualimage4.visible:=true;
+   end;
+   7:begin
+        virtualimageBG.Imageindex:=6;
+        shape3.visible:=true;//windows
+        shape4.visible:=true;
+        shape5.visible:=true;
+        shape6.visible:=true;
+        shape7.visible:=true;
+        shape8.visible:=true;
+   end;
+   10:begin
+      virtualimageBG.imageindex:=39;
+      virtualimage5.visible:=true;
+      self.color:=clwhite;
+   end;
+   11:begin
+      virtualimage6.imageindex:=41;
+
+   end;
+end;
+end;
+
+
+
+procedure TForm8.ComboBox2Change(Sender: TObject);
+begin
+  Shape1.Visible := False;
+  Shape2.Visible := False;
+  VirtualImage1.Visible := False;
+  Virtualimage3.visible:=false;
+  shape5.Visible := False;
+  virtualimage4.visible:=false; //wooden deck
+  shape3.visible:=false;//windows
+  shape4.visible:=false;
+  shape6.visible:=false;
+  shape7.visible:=false;
+  shape8.visible:=false;
+  virtualimage5.visible:=false;
+ case combobox2.itemindex of
+
+  3:begin
+     virtualImage6.ImageIndex := 38;
+     virtualimage8.visible:=false;
+
+      ShowMessage('Welcome to the water park! please do not sit on floating radiator');
+ end;
+ end;
+ end;
+procedure TForm8.ComboBox3Change(Sender: TObject);
+begin
+ case combobox3.itemindex of
+  0:virtualimage16.imageindex:=12;
+  1:virtualimage16.imageindex:=13;
+  2:virtualimage18.imageindex:=14;
+  3:virtualimage18.imageindex:=15;
+  4:virtualimage20.imageindex:=16;
+  5:virtualimage20.imageindex:=17;
+  6:virtualimage22.imageindex:=18;
+  7:virtualimage22.imageindex:=19;
+  8:virtualimage9.imageindex:=20;
+  9:virtualimage9.imageindex:=21;
+  10:virtualimage2.imageindex:=22;
+  11:virtualimage2.imageindex:=23;
+  12:virtualimage2.imageindex:=24;
+  13:virtualimage2.imageindex:=25;
+  14:virtualimage2.imageindex:=26;
+  15:virtualimage2.imageindex:=27;
+  16:virtualimage2.imageindex:=28;
+  17:virtualimage2.imageindex:=29;
+  18:virtualimage14.imageindex:=36;
+  19:virtualimage14.imageindex:=37;
+  20:virtualimage2.imageindex:=40;
+  21:virtualimage8.imageindex:=42;
+  22:virtualimage8.imageindex:=43;
+ end;
+end;
+
+procedure TForm8.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ Action := caNone;  // 核心：拦截关闭，告诉系统“别杀我”
+  Hide;              // 核心：把界面藏起来
+
+  // 触发一个气泡提示（这就叫入门级的仪式感！）
+  TrayIcon1.BalloonTitle := 'dress up game';
+  TrayIcon1.BalloonHint := 'I am back to right buttom,click for me';
+  TrayIcon1.ShowBalloonHint;
+end;
+
+procedure TForm8.TabSet1Change(Sender: TObject; NewTab: Integer;
+  var AllowChange: Boolean);
+begin
+  VirtualImageBG.Visible := False;
+  CardPanel1.ActiveCardIndex:=0;
+
+  if (NewTab >= 0) and (NewTab < CardPanel1.CardCount) then
+  begin
+    CardPanel1.ActiveCardIndex := NewTab;
+  end
+  else
+  begin
+    AllowChange := False;
+  end;
+end;
+
+procedure TForm8.TrayIcon1Click(Sender: TObject);
+begin
+  Show;              // 重新显示界面
+  WindowState := wsNormal; // 确保它恢复成正常窗口
+  Application.BringToFront; // 让它跑到所有窗口最前面
+end;
+
+
+procedure TForm8.FormCreate(Sender: TObject);
+begin
+ ApplySeasonalcolor;
+ virtualimageBG.SendToback;
+ virtualimage2.bringtofront;
+ virtualimage3.bringtofront;
+ virtualimage5.sendtoback;
+end;
+
+
+
+procedure TForm8.LinkLabel1LinkClick(Sender: TObject; const Link: string;
+  LinkType: TSysLinkType);
+begin
+   ShellExecute(0, PChar('open'), PChar('https://chat.deepseek.com'), nil, nil, SW_SHOWNORMAL);
+end;
+
+procedure TForm8.SpeedButton1Click(Sender: TObject);
+begin
+ showmessage('hello, my dress up game');
+end;
+
+
+procedure TForm8.SpeedButton2Click(Sender: TObject);
+begin
+ showmessage('trick or treat');
+end;
+
+end.
